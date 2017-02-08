@@ -90,7 +90,8 @@
          def parse_ldap_dn(pdu, subject)
            ldap_dn = parse_octet_string(pdu, subject)
 
-           unless ldap_dn.empty? or ldap_dn =~ /^\w+=\w+(,\w+=\w+)*$/
+           unless ldap_dn.empty? ||
+                  ldap_dn =~ /^(\w|-)+=(\w|-)+(,(\w|-)+=(\w|-)+)*$/
              raise Error::InvalidDNSyntaxError, "#{ldap_dn} is not legal as LDAP DN."
            end
 

@@ -39,7 +39,8 @@ module Mole
         end
 
         def sanitize_dn
-          unless @matched_dn.empty? or @matched_dn =~ /^\w+=\w+(,\w+=\w+)*$/
+          unless @matched_dn.empty? ||
+                 @matched_dn =~ /^(\w|-)+=(\w|-)+(,(\w|-)+=(\w|-)+)*$/
             raise Error::InvalidDNSyntaxError, "#{@matched_dn} is ill formed as LDAP DN."
           end
         end
